@@ -1,6 +1,23 @@
+#!/usr/bin/env python3
 import csv
 import math
-from typing import List
+from typing import List, Tuple
+
+
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
+    """ Returns a tuple containing the start index and end index for the
+        given page and page_size
+
+        Args:
+            page: int
+            page_size: int
+
+        Returns:
+            Tuple[start index, end index]
+    """
+    start_index = (page - 1) * page_size
+    end_index = page * page_size
+    return (start_index, end_index)
 
 
 class Server:
@@ -23,4 +40,16 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-            pass
+        """
+        Retrives a page from the dataset
+        """
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
+
+        dataset = self.dataset()
+
+        try:
+            start_index, end_index = index_range(page, page_size)
+            return dataset[start_index:end_index]
+        except IndexError:
+            return []
