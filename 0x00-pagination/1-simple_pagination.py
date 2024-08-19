@@ -50,6 +50,9 @@ class Server:
 
         try:
             start_index, end_index = index_range(page, page_size)
+            if start_index >= len(dataset):
+                return []
             return dataset[start_index:end_index]
         except IndexError:
             return []
+        
