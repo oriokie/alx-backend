@@ -50,4 +50,4 @@ class Server:
         dataset = self.dataset()
         if start_index >= len(dataset):
             return []
-        return dataset[start_index, end_index]
+        return dataset[start_index:end_index]
